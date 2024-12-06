@@ -43,7 +43,7 @@
         <mxCell id="cykCmpS7P3VMSJ_2BtCi-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-7" target="cykCmpS7P3VMSJ_2BtCi-5">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="cykCmpS7P3VMSJ_2BtCi-7" value="Сервис карт (внешний)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-7" value="Сервис карт (внешний)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
           <mxGeometry x="600" y="90" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="cykCmpS7P3VMSJ_2BtCi-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-8" target="cykCmpS7P3VMSJ_2BtCi-5">
