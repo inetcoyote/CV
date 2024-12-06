@@ -64,8 +64,13 @@
         <mxCell id="cykCmpS7P3VMSJ_2BtCi-18" value="сервис данных о самокате (начальная и конечная точки)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="440" y="500" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="cykCmpS7P3VMSJ_2BtCi-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-19" target="cykCmpS7P3VMSJ_2BtCi-18">
-          <mxGeometry relative="1" as="geometry" />
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-19">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="560" y="530" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="560" y="530" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="cykCmpS7P3VMSJ_2BtCi-19" value="сервис получения кадра с поля с самокатами" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="610" y="500" width="120" height="60" as="geometry" />
