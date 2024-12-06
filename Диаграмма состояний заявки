@@ -110,11 +110,11 @@
         <mxCell id="cykCmpS7P3VMSJ_2BtCi-24" value="маршруты" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
           <mxGeometry x="110" y="600" width="60" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="cykCmpS7P3VMSJ_2BtCi-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.687;entryY=0.355;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-18" target="cykCmpS7P3VMSJ_2BtCi-22">
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-18" target="cykCmpS7P3VMSJ_2BtCi-22">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="500" y="580" />
-              <mxPoint x="341" y="580" />
+              <mxPoint x="330" y="580" />
             </Array>
           </mxGeometry>
         </mxCell>
