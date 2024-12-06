@@ -53,10 +53,48 @@
           <mxGeometry x="600" y="200" width="120" height="60" as="geometry" />
         </mxCell>
         <mxCell id="cykCmpS7P3VMSJ_2BtCi-9" value="маршруты" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
-          <mxGeometry x="330" y="390" width="60" height="80" as="geometry" />
+          <mxGeometry x="330" y="330" width="60" height="80" as="geometry" />
         </mxCell>
         <mxCell id="cykCmpS7P3VMSJ_2BtCi-10" value="данные пользователей" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
-          <mxGeometry x="459" y="390" width="60" height="80" as="geometry" />
+          <mxGeometry x="446" y="330" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-25" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-18" target="cykCmpS7P3VMSJ_2BtCi-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-18" value="сервис данных о самокате (начальная и конечная точки)" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-19" value="сервис получения кадра с поля с самокатами" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="500" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-20" value="MQ наличия самокатов" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-21" value="анализ текущего положения/маршрута" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="620" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-22" value="GEO HASH" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="300" y="600" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-23" value="DB meta" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="210" y="600" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-24" value="маршруты" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="110" y="600" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.687;entryY=0.355;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-18" target="cykCmpS7P3VMSJ_2BtCi-22">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="580" />
+              <mxPoint x="341" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-18" target="cykCmpS7P3VMSJ_2BtCi-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cykCmpS7P3VMSJ_2BtCi-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="cykCmpS7P3VMSJ_2BtCi-18" target="cykCmpS7P3VMSJ_2BtCi-24">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
