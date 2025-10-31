@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+Queue->>Worker: Получает сообщение из очереди
+Worker->>DB: INSERT INTO Vote (user_id, poll_id, option_id, client_ip, user_agent, auth_method, voted_at)
+DB-->>Worker: Успешно записано
+
+Worker->>Worker: Агрегировать результаты (если нужно пересчитать)
+Worker->>DB: UPDATE PollResultCache SET vote_count = vote_count + 1 WHERE poll_id = ? AND option_id = ?
+DB-->>Worker: Обновлено
+
+Worker->>Worker: Логировать в аудит (опционально в S3/ClickHouse)
+
+@enduml
