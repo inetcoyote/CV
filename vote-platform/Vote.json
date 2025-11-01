@@ -1,0 +1,178 @@
+{
+  "processId": "Process_Voting",
+  "processName": "Процесс анонимного голосования",
+  "isExecutable": true,
+  "startEvent": {
+    "id": "StartEvent_1",
+    "name": "Пользователь отправляет голос",
+    "outgoing": "Flow_1"
+  },
+  "tasks": [
+    {
+      "id": "CheckToken",
+      "type": "serviceTask",
+      "name": "Проверить токен (JWT/email)",
+      "implementation": "${tokenValidator}",
+      "incoming": "Flow_1",
+      "outgoing": "Flow_2"
+    },
+    {
+      "id": "CheckDuplicate",
+      "type": "serviceTask",
+      "name": "Проверить, голосовал ли пользователь",
+      "implementation": "${voteService.checkDuplicate}",
+      "incoming": "Flow_3",
+      "outgoing": "Flow_5"
+    },
+    {
+      "id": "BlockDuplicate",
+      "type": "serviceTask",
+      "name": "Заблокировать повторно (Redis)",
+      "implementation": "${redisService.blockVote}",
+      "incoming": "Flow_7",
+      "outgoing": "Flow_8"
+    },
+    {
+      "id": "UpdateCache",
+      "type": "serviceTask",
+      "name": "Обновить кэш результатов (Redis)",
+      "implementation": "${redisService.incrementResult}",
+      "incoming": "Flow_8",
+      "outgoing": "Flow_9"
+    },
+    {
+      "id": "SendMessage",
+      "type": "serviceTask",
+      "name": "Отправить событие в очередь (Kafka/RabbitMQ)",
+      "implementation": "${messagingService.send}",
+      "incoming": "Flow_9",
+      "outgoing": "Flow_10"
+    },
+    {
+      "id": "ReturnResponse",
+      "type": "serviceTask",
+      "name": "Вернуть ответ пользователю: 200 OK",
+      "implementation": "${responseService.acceptVote}",
+      "incoming": "Flow_10",
+      "outgoing": "Flow_11"
+    },
+    {
+      "id": "ReceiveMessage",
+      "type": "receiveTask",
+      "name": "Worker: Получить из очереди",
+      "async": true,
+      "incoming": "Flow_12",
+      "outgoing": "Flow_13"
+    },
+    {
+      "id": "WriteToDB",
+      "type": "serviceTask",
+      "name": "Записать голос в БД (Vote)",
+      "implementation": "${databaseService.insertVote}",
+      "incoming": "Flow_13",
+      "outgoing": "Flow_14"
+    },
+    {
+      "id": "UpdateResultCache",
+      "type": "serviceTask",
+      "name": "Обновить PollResultCache",
+      "implementation": "${databaseService.updateResultCache}",
+      "incoming": "Flow_14",
+      "outgoing": "Flow_15"
+    },
+    {
+      "id": "LogAudit",
+      "type": "serviceTask",
+      "name": "Залогировать в аудит-систему (SIEM/S3)",
+      "implementation": "${auditService.log}",
+      "incoming": "Flow_15",
+      "outgoing": "Flow_16"
+    },
+    {
+      "id": "PublishUpdate",
+      "type": "serviceTask",
+      "name": "Опубликовать обновление (WebSocket/SSE)",
+      "implementation": "${notificationService.publishResults}",
+      "incoming": "Flow_16",
+      "outgoing": "Flow_17"
+    }
+  ],
+  "gateways": [
+    {
+      "id": "Gateway_TokenValid",
+      "type": "exclusiveGateway",
+      "name": "Токен валиден?",
+      "incoming": "Flow_2",
+      "outgoing": ["Flow_3", "Flow_4"],
+      "conditions": {
+        "Flow_3": "${validToken == true}",
+        "Flow_4": "${validToken == false}"
+      }
+    },
+    {
+      "id": "Gateway_Duplicate",
+      "type": "exclusiveGateway",
+      "name": "Уже голосовал?",
+      "incoming": "Flow_5",
+      "outgoing": ["Flow_6", "Flow_7"],
+      "conditions": {
+        "Flow_6": "${alreadyVoted == true}",
+        "Flow_7": "${alreadyVoted == false}"
+      }
+    }
+  ],
+  "endEvents": [
+    {
+      "id": "End_InvalidToken",
+      "name": "Отклонить: 403 Forbidden",
+      "incoming": "Flow_4"
+    },
+    {
+      "id": "End_Duplicate",
+      "name": "Отклонить: Повторное голосование",
+      "incoming": "Flow_6"
+    },
+    {
+      "id": "End_Success",
+      "name": "Пользователь видит подтверждение",
+      "incoming": "Flow_11"
+    },
+    {
+      "id": "End_ResultsUpdated",
+      "name": "Результаты обновлены ≤ 4 сек",
+      "incoming": "Flow_17"
+    }
+  ],
+  "sequenceFlows": [
+    { "id": "Flow_1", "sourceRef": "StartEvent_1", "targetRef": "CheckToken" },
+    { "id": "Flow_2", "sourceRef": "CheckToken", "targetRef": "Gateway_TokenValid" },
+    { "id": "Flow_3", "sourceRef": "Gateway_TokenValid", "targetRef": "CheckDuplicate" },
+    { "id": "Flow_4", "sourceRef": "Gateway_TokenValid", "targetRef": "End_InvalidToken" },
+    { "id": "Flow_5", "sourceRef": "CheckDuplicate", "targetRef": "Gateway_Duplicate" },
+    { "id": "Flow_6", "sourceRef": "Gateway_Duplicate", "targetRef": "End_Duplicate" },
+    { "id": "Flow_7", "sourceRef": "Gateway_Duplicate", "targetRef": "BlockDuplicate" },
+    { "id": "Flow_8", "sourceRef": "BlockDuplicate", "targetRef": "UpdateCache" },
+    { "id": "Flow_9", "sourceRef": "UpdateCache", "targetRef": "SendMessage" },
+    { "id": "Flow_10", "sourceRef": "SendMessage", "targetRef": "ReturnResponse" },
+    { "id": "Flow_11", "sourceRef": "ReturnResponse", "targetRef": "End_Success" },
+    { "id": "Flow_12", "sourceRef": "SendMessage", "targetRef": "ReceiveMessage" },
+    { "id": "Flow_13", "sourceRef": "ReceiveMessage", "targetRef": "WriteToDB" },
+    { "id": "Flow_14", "sourceRef": "WriteToDB", "targetRef": "UpdateResultCache" },
+    { "id": "Flow_15", "sourceRef": "UpdateResultCache", "targetRef": "LogAudit" },
+    { "id": "Flow_16", "sourceRef": "LogAudit", "targetRef": "PublishUpdate" },
+    { "id": "Flow_17", "sourceRef": "PublishUpdate", "targetRef": "End_ResultsUpdated" }
+  ],
+  "metadata": {
+    "description": "Процесс анонимного голосования с проверкой права участия, аудитом и обновлением результатов в реальном времени.",
+    "performance": {
+      "maxUsers": 100000,
+      "responseTime": "≤ 1 сек",
+      "resultsUpdate": "≤ 4 сек"
+    },
+    "security": {
+      "anonymity": true,
+      "audit": true,
+      "rateLimiting": true
+    }
+  }
+}
