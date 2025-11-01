@@ -1,25 +1,37 @@
 ```mermaid
+---
+title: BPMN — Процесс анонимного голосования
+---
 flowchart TD
-    Start([User Order]) --> Check{Check Stock}
-    Check -->|In Stock| Reserve[Reserve Stock]
-    Check -->|Out of Stock| OutOfStock[Out of Stock]
-    OutOfStock --> Notify[Notify User]
-    Notify --> End1([End])
-    
-    Reserve --> Payment{Payment Processing}
-    Payment -->|Success| ConfirmOrder[Confirm Order]
-    Payment -->|Fail| ReleaseStock[Release Stock]
-    ReleaseStock --> PaymentFailed[Payment Failed]
-    PaymentFailed --> End2([End])
-    
-    ConfirmOrder --> UpdateInventory[Update Inventory]
-    UpdateInventory --> SendNotification[Send Notification]
-    SendNotification --> Logistics[Arrange Logistics]
-    Logistics --> End3([Order Complete])
-    
-    style Start fill:#e8f5e8
-    style End1 fill:#ffebee
-    style End2 fill:#ffebee
-    style End3 fill:#e8f5e8
-    style OutOfStock fill:#ffebee
-    style PaymentFailed fill:#ffebee
+    A[Пользователь отправляет голос] --> B{Проверка токена - JWT/email}
+    B -->|Невалидный| C[Отклонить: 403 Forbidden]
+    B -->|Валидный| D{Уже голосовал?}
+    D -->|Да| E[Отклонить: Повторное голосование]
+    D -->|Нет| F[Заблокировать повторно Redis]
+    F --> G[Обновить кэш результатов - Redis]
+    G --> H[Отправить событие в очередь - Kafka/RabbitMQ]
+    H --> I[Вернуть ответ пользователю: 200 OK]
+    I --> J[Пользователь видит подтверждение]
+
+    H --> K[Worker: Получить из очереди]
+    K --> L[Записать голос в БД - Vote]
+    L --> M[Обновить агрегированные результаты - PollResultCache]
+    M --> N[Залогировать в аудит-систему - SIEM/S3]
+    N --> O[Опубликовать обновление - WebSocket/SSE]
+    O --> P[Фронтенд: Обновить интерфейс]
+    P --> Q[Результаты обновлены ≤ 4 сек]
+
+    style A fill:#4CAF50,stroke:#388E3C,color:white
+    style C fill:#f44336,stroke:#d32f2f,color:white
+    style E fill:#ff9800,stroke:#f57c00,color:white
+    style I fill:#2196F3,stroke:#1976D2,color:white
+    style Q fill:#4CAF50,stroke:#388E3C,color:white
+
+    classDef green fill:#4CAF50,stroke:#388E3C,color:white;
+    classDef red fill:#f44336,stroke:#d32f2f,color:white;
+    classDef orange fill:#ff9800,stroke:#f57c00,color:white;
+    classDef blue fill:#2196F3,stroke:#1976D2,color:white;
+
+    class C,E red
+    class I,O,P blue
+    class Q green
