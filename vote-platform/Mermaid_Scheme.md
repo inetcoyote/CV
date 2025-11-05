@@ -1,3 +1,8 @@
+<!-- ссылки на документацию по markdown
+ https://www.markdownlang.com/advanced/diagrams.html
+ https://www.mermaidflow.app/docs/syntax/flowchart
+-->
+
 ```mermaid
 ---
 title: BPMN — Процесс анонимного голосования
