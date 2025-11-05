@@ -1,4 +1,5 @@
 ```plantuml
+@startuml
 title Пользователь хочет проголосовать
     participant User as "Пользователь"
     participant Frontend as "Frontend (SPA)"
@@ -26,5 +27,5 @@ title Пользователь хочет проголосовать
     Redis-->>API: Кэш обновлён
     API-->>Frontend: Возвращает результат
     Frontend-->>User: Показывает результат
-
+@enduml
 ```
