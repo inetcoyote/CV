@@ -292,14 +292,10 @@ CREATE INDEX idx_vote_voted_at ON Vote(voted_at DESC); -- Аудит
 
 # 13. Swagger
 
-| Эндпоинт | Описание                              |
-|-----------|---------------------------------------|
-| GET /polls/active   | возвращает массив активных опросов    |
-| POST /api/vote   | отправка голоса пользователя в опросе |
-
-![Get_Pools - получение списка голосований](Models/Swagger/Get_Pools.yaml)
-
-![Post_Vote - отправка голоса](Models/Swagger/Post_Vote.yaml)
+| Эндпоинт | Описание | Swagger                                                                     |
+|-----------|---------|--------------------------------|
+| GET /polls/active   | возвращает массив активных опросов    | [Get_Pools - получение списка голосований](Models/Swagger/Get_Pools.yaml)   |
+| POST /api/vote   | отправка голоса пользователя в опросе | [Post_Vote - отправка голоса](Models/Swagger/Post_Vote.yaml)                |
 
 [Пример JSON ответа с перечнем возможных голосований](Models/JSON/Vote_Response.json)
 
