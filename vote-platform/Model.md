@@ -50,6 +50,8 @@
 ### 2.2.1 Пользователь хочет проголосовать
 ![Sequence User Votes Diagram](Models/IMGs/Seq_User_Votes.png)
 
+[UML Sequence User Votes Diagram](Models/UML/Seq_User_Votes.puml)
+
 ### 2.2.2 API проверяет право голоса и дубли
 ![Sequence API Check Vote Diagram](Models/IMGs/Seq_Check_Vote.png)
 
