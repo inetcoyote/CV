@@ -1,0 +1,105 @@
+openapi: 3.0.0
+info:
+  title: Polls API
+  version: 1.0.0
+  description: API для работы с опросами
+
+paths:
+  /polls/active:
+    get:
+      summary: Получить список активных опросов
+      description: Возвращает список всех активных (не завершённых) опросов
+      operationId: getActivePolls
+      tags:
+        - Polls
+      responses:
+        '200':
+          description: Успешный ответ. Возвращён список активных опросов
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Poll'
+        '500':
+          description: Внутренняя ошибка сервера
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Poll:
+      type: object
+      required:
+        - id
+        - title
+        - startDate
+        - endDate
+        - isActive
+      properties:
+        id:
+          type: integer
+          example: 1
+          description: Уникальный идентификатор опроса
+        title:
+          type: string
+          example: "Любимый язык программирования"
+          description: Название опроса
+        description:
+          type: string
+          example: "Выберите ваш любимый язык программирования"
+          description: Описание опроса (опционально)
+        startDate:
+          type: string
+          format: date-time
+          example: "2023-10-01T00:00:00Z"
+          description: Дата начала опроса
+        endDate:
+          type: string
+          format: date-time
+          example: "2023-10-31T23:59:59Z"
+          description: Дата окончания опроса
+        isActive:
+          type: boolean
+          example: true
+          description: Активен ли опрос на текущий момент
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Question'
+          description: Список вопросов в опросе (опционально)
+
+    Question:
+      type: object
+      required:
+        - id
+        - text
+        - type
+      properties:
+        id:
+          type: integer
+          example: 101
+        text:
+          type: string
+          example: "Какой язык вы используете чаще всего?"
+        type:
+          type: string
+          enum: [single, multiple, text]
+          example: single
+        options:
+          type: array
+          items:
+            type: string
+          example: ["Python", "JavaScript", "Go", "Rust"]
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example: "Internal Server Error"
