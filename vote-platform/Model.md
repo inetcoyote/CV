@@ -301,6 +301,10 @@ CREATE INDEX idx_vote_voted_at ON Vote(voted_at DESC); -- Аудит
 
 ![Post_Vote - отправка голоса](Models/Swagger/Post_Vote.yaml)
 
+[Пример JSON ответа с перечнем возможных голосований](Models/JSON/Vote_Response.json)
+
+[Пример JSON ответа с результатами голосования](Models/JSON/Vote_Results.json)
+
 <!--
 # 13. Документация
 | Компонент | Технология |   Назначение |
