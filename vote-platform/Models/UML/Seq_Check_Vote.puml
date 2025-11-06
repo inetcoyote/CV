@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+title API проверяет право голоса и дубли
+'sequenceDiagram
+    API->>Auth: Проверить токен (JWT или email-токен)
+    Auth-->>API: Валидный? email=user@example.com
+
+    API->>DB: SELECT id FROM User WHERE email = ?
+    DB-->>API: user_id
+
+    API->>Redis: EXISTS voted:{user_id}:{poll_id}
+    alt Уже голосовал
+        Redis-->>API: true
+        API-->>Frontend: 403 Forbidden (уже голосовал)
+        Frontend-->>User: Показать ошибку
+        'stop
+    end
+
+    Redis-->>API: false (не голосовал)
+@enduml

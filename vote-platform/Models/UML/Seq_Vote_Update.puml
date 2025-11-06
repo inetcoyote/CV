@@ -1,0 +1,11 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+'sequenceDiagram
+title Реальное время: обновление результатов
+    Worker->>Redis: GETALL result:{poll_id}:*
+    Redis-->>Worker: Все счётчики по голосованию
+
+    Worker->>WS: Отправить обновление {poll_id, results: [...], timestamp}
+    WS->>Frontend: WebSocket: {type: "poll_update", data: {...}}
+    Frontend->>User: Обновить диаграмму в интерфейсе
+@enduml

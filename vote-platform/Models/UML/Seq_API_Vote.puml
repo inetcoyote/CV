@@ -1,0 +1,13 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+'sequenceDiagram
+title API фиксирует голос (асинхронно)
+    API->>Redis: MULTI
+    Redis->>Redis: SET voted:{user_id}:{poll_id} "1" EX 600
+    Redis->>Redis: INCR result:{poll_id}:{option_id}
+    Redis-->>API: EXEC (атомарно)
+
+    API->>Queue: Отправить событие {user_id, poll_id, option_id, ip, ua, auth_method, voted_at}
+    API-->>Frontend: 200 OK (голос принят)
+    Frontend-->>User: Показать подтверждение
+@enduml
