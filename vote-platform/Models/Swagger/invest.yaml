@@ -1,0 +1,71 @@
+swagger: '2.0'
+info:
+title: Investment Account API
+description: API for retrieving information about an investment account.
+version: 1.0.0
+host: api.example.com
+basePath: /v1
+schemes:
+- https
+paths:
+/investment-account/{accountId}:
+get:
+summary: Get investment account information
+description: Retrieve detailed information about a specific investment account.
+operationId: getInvestmentAccount
+parameters:
+- name: accountId
+in: path
+required: true
+type: string
+description: Unique identifier for the investment account.
+- name: userId
+in: query
+required: true
+type: string
+description: Unique identifier for the user associated with the account.
+responses:
+200:
+description: Successful response with account information
+schema:
+type: object
+properties:
+accountId:
+type: string
+description: The unique identifier for the investment account.
+userId:
+type: string
+description: The user associated with the account.
+balance:
+type: number
+format: float
+description: Current balance of the investment account.
+investments:
+type: array
+items:
+type: object
+properties:
+investmentId:
+type: string
+investmentType:
+type: string
+amount:
+type: number
+format: float
+description: List of investments associated with the account.
+404:
+description: Account not found
+schema:
+type: object
+properties:
+error:
+type: string
+example: Account not found.
+400:
+description: Bad request
+schema:
+type: object
+properties:
+error:
+type: string
+example: Invalid parameters.
