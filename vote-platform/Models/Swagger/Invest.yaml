@@ -1,0 +1,87 @@
+openapi: 3.0.0
+info:
+  title: Investment Account API
+  version: 1.0.0
+  description: API for retrieving information about an investment account.
+servers:
+  - url: https://api.example.com/v1
+paths:
+  /investment-account/{accountId}:
+    get:
+      summary: Get investment account information
+      description: Retrieve detailed information about a specific investment account.
+      operationId: getInvestmentAccount
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          description: Unique identifier for the investment account.
+          schema:
+            type: string
+        - name: userId
+          in: query
+          required: true
+          description: Unique identifier for the user associated with the account.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response with account information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accountId:
+                    type: string
+                    description: The unique identifier for the investment account.
+                  userId:
+                    type: string
+                    description: The user associated with the account.
+                  balance:
+                    type: number
+                    format: float
+                    description: Current balance of the investment account.
+                  investments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        investmentId:
+                          type: string
+                        investmentType:
+                          type: string
+                        amount:
+                          type: number
+                          format: float
+                    description: List of investments associated with the account.
+        '404':
+          description: Account not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Account not found.
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid parameters.
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Internal server error occurred.
