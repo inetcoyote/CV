@@ -654,6 +654,7 @@ ER диаграмма для базы данных:
 
 Ссылка на ER диаграмму: [здесь](https://drawsql.app/teams/inetcoyote/diagrams/vote-platform)
 
+SQL для создания таблиц: [здесь](Models/SQL/Create_Tables.sql)
 
 # 5. Дополнительные компоненты системы
 ### 5.1 Проверка права голоса
