@@ -39,3 +39,7 @@ https://openapidesigner.com/
 https://gorbe.io/tools/swagger-editor/
 
 https://babok-school.ru/blog/open-api-specification-example/
+
+
+#### Про топ 10 безопасности
+https://skillbox.ru/media/code/owasp-top-10-samye-rasprostranyennye-uyazvimosti-vebprilozheniy/
