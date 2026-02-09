@@ -3,7 +3,7 @@
 ### Оглавление:
 
 
-1. [Управление требованиями](1 Requirements management/ReadMe.md)
+1. [Управление требованиями](1_Requirements_management/ReadMe.md)
 2. HTTP
 3. Интеграции
 4. Монолит VS Микросервисы
